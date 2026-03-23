@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+project/data/
+project/results/
+
+*.nii
+*.nii.gz
+*.h5
+*.tfm
+
