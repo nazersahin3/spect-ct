@@ -1,60 +1,39 @@
 import SimpleITK as sitk
-import os
 
 # ----------------------------
 # Paths
 # ----------------------------
-fixed_spect_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/SPECT- pre #2/1000_Mebrofenin_SPECT_F3D_-_AC_pre#2.nii"
-moving_spect_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/SPECT - post #2/1000_Mebrofenin_SPECT_F3D_-_AC_post#2.nii"
-transform_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/results/ct_post_to_pre_final.h5"
-
-output_dir = "/Users/nana/Desktop/SPECT_registration_results"
-os.makedirs(output_dir, exist_ok=True)
-
-print("Fixed SPECT exists:", os.path.exists(fixed_spect_path), fixed_spect_path)
-print("Moving SPECT exists:", os.path.exists(moving_spect_path), moving_spect_path)
-print("Transform exists:", os.path.exists(transform_path), transform_path)
+spect_post_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/SPECT - post #2/1000_Mebrofenin_SPECT_F3D_-_AC_post#2.nii"
+spect_pre_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/SPECT- pre #2/1000_Mebrofenin_SPECT_F3D_-_AC_pre#2.nii"
+ct_transform_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/results/ct registration - redo of week 5/take 3/ct_post_to_pre_affine_take3_v2.h5"
 
 # ----------------------------
-# Load images and transform
+# Load images
 # ----------------------------
-fixed_spect = sitk.ReadImage(fixed_spect_path, sitk.sitkFloat32)
-moving_spect = sitk.ReadImage(moving_spect_path, sitk.sitkFloat32)
-final_transform = sitk.ReadTransform(transform_path)
+spect_post = sitk.ReadImage(spect_post_path, sitk.sitkFloat32)
+spect_pre = sitk.ReadImage(spect_pre_path, sitk.sitkFloat32)
 
-print("Loaded fixed SPECT, moving SPECT, and transform")
+# Load CT transform
+ct_transform = sitk.ReadTransform(ct_transform_path)
 
 # ----------------------------
 # Apply transform
 # ----------------------------
 registered_spect = sitk.Resample(
-    moving_spect,
-    fixed_spect,
-    final_transform,
+    spect_post,          # moving
+    spect_pre,           # reference (VERY IMPORTANT)
+    ct_transform,
     sitk.sitkLinear,
     0.0,
-    moving_spect.GetPixelID()
+    spect_post.GetPixelID()
 )
 
 # ----------------------------
-# Output paths (two locations)
+# Save
 # ----------------------------
-filename = "002_registered_spect_post_to_pre.nii.gz"
+output_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/results/registered_spect_post_to_pre_from_CT_transform.nii.gz"
 
-project_output_dir = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/results"
-desktop_output_dir = "/Users/nana/Desktop/SPECT_registration_results"
+sitk.WriteImage(registered_spect, output_path)
 
-os.makedirs(project_output_dir, exist_ok=True)
-os.makedirs(desktop_output_dir, exist_ok=True)
-
-project_output_path = os.path.join(project_output_dir, "registered_spect_post_to_pre.nii.gz")
-desktop_output_path = os.path.join(desktop_output_dir, "registered_spect_post_to_pre.nii.gz")
-
-# ----------------------------
-# Save outputs
-# ----------------------------
-sitk.WriteImage(registered_spect, project_output_path)
-sitk.WriteImage(registered_spect, desktop_output_path)
-
-print("Saved to project:", project_output_path)
-print("Saved to desktop:", desktop_output_path)
+print("Saved to:", output_path)
+print("Done!")
