@@ -1,19 +1,10 @@
 import SimpleITK as sitk
-import os
-
-fixed_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/CT - pre #2/003_CT_Liver_3mm_I41s_pre#2.nii"
-moving_path = "/Users/nana/Desktop/HONOURS/spect-ct-imac/project/data/002/CT - post #2/003_CT_Liver_3mm_I41_post#2.nii"
-
-print("Current working directory:", os.getcwd())
-print("Fixed exists:", os.path.exists(fixed_path), fixed_path)
-print("Moving exists:", os.path.exists(moving_path), moving_path)
 
 # ----------------------------
 # Load images
 # ----------------------------
-fixed_ct = sitk.ReadImage(fixed_path, sitk.sitkFloat32)
-moving_ct = sitk.ReadImage(moving_path, sitk.sitkFloat32)
-print("Images loaded")
+fixed_ct = sitk.ReadImage("project/data/002/CT - pre #2/003_CT_Liver_3mm_I41s_pre#2.nii", sitk.sitkFloat32)
+moving_ct = sitk.ReadImage("project/data/002/CT - post #2/003_CT_Liver_3mm_I41_post#2.nii", sitk.sitkFloat32)
 
 # Optional smoothing
 fixed_ct = sitk.CurvatureFlow(fixed_ct, timeStep=0.125, numberOfIterations=5)
@@ -31,8 +22,6 @@ moving_ct_small = shrink(moving_ct, 4)
 # ----------------------------
 # 1. RIGID REGISTRATION
 # ----------------------------
-print("Starting rigid registration...")
-
 initial_rigid = sitk.CenteredTransformInitializer(
     fixed_ct_small,
     moving_ct_small,
@@ -60,13 +49,10 @@ rigid_reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
 
 rigid_reg.SetInitialTransform(initial_rigid, inPlace=False)
 rigid_transform = rigid_reg.Execute(fixed_ct_small, moving_ct_small)
-print("Rigid done")
 
 # ----------------------------
 # 2. AFFINE REGISTRATION
 # ----------------------------
-print("Starting affine registration...")
-
 affine_initial = sitk.AffineTransform(3)
 
 affine_reg = sitk.ImageRegistrationMethod()
@@ -87,19 +73,18 @@ affine_reg.SetShrinkFactorsPerLevel([4, 2, 1])
 affine_reg.SetSmoothingSigmasPerLevel([2, 1, 0])
 affine_reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
 
+# rigid acts as prior alignment
 affine_reg.SetMovingInitialTransform(rigid_transform)
 affine_reg.SetInitialTransform(affine_initial, inPlace=False)
 
 affine_transform = affine_reg.Execute(fixed_ct_small, moving_ct_small)
-print("Affine done")
 
 # ----------------------------
 # 3. BSPLINE REGISTRATION
 # ----------------------------
-print("Starting bspline registration...")
-
 grid_physical_spacing = [40.0, 40.0, 40.0]
 image_physical_size = [size * spacing for size, spacing in zip(fixed_ct.GetSize(), fixed_ct.GetSpacing())]
+
 mesh_size = [max(1, int(sz / gsp + 0.5)) for sz, gsp in zip(image_physical_size, grid_physical_spacing)]
 
 initial_bspline = sitk.BSplineTransformInitializer(fixed_ct, mesh_size)
@@ -119,24 +104,23 @@ bspline_reg.SetShrinkFactorsPerLevel([4, 2, 1])
 bspline_reg.SetSmoothingSigmasPerLevel([2, 1, 0])
 bspline_reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
 
+# IMPORTANT: affine result is kept as prior alignment
 bspline_reg.SetMovingInitialTransform(affine_transform)
 bspline_reg.SetInitialTransform(initial_bspline, inPlace=False)
 
 bspline_transform = bspline_reg.Execute(fixed_ct, moving_ct)
-print("Bspline done")
 
 # ----------------------------
 # 4. COMPOSE FINAL TRANSFORM
 # ----------------------------
-
-final_transform = bspline_transform
+final_transform = sitk.CompositeTransform(3)
+final_transform.AddTransform(rigid_transform)
+final_transform.AddTransform(affine_transform)
+final_transform.AddTransform(bspline_transform)
 
 # ----------------------------
 # 5. RESAMPLE MOVING IMAGE TO FIXED
 # ----------------------------
-
-print("Resampling moving CT...")
-
 registered_ct = sitk.Resample(
     moving_ct,
     fixed_ct,
@@ -146,18 +130,4 @@ registered_ct = sitk.Resample(
     moving_ct.GetPixelID()
 )
 
-# ----------------------------
-# 6. SAVE OUTPUTS
-# ----------------------------
-output_dir = "project/results"
-os.makedirs(output_dir, exist_ok=True)
-
-registered_ct_path = os.path.join(output_dir, "registered_ct_post_to_pre.nii.gz")
-final_transform_path = os.path.join(output_dir, "ct_post_to_pre_final.h5")
-
-sitk.WriteImage(registered_ct, registered_ct_path)
-sitk.WriteTransform(final_transform, final_transform_path)
-
-print("Saved registered image to:", registered_ct_path)
-print("Saved final transform to:", final_transform_path)
-print("Finished")
+sitk.WriteImage(registered_ct, "registered_ct.nii")
