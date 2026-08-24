@@ -10,7 +10,7 @@ import SimpleITK as sitk
 
 patient_id = "002"
 
-base_dir = Path("/Users/nana/Desktop/HONOURS/spect-data-imac/NE ALTERED")
+base_dir = Path("/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED")
 output_dir = base_dir / patient_id / "registered"
 output_dir.mkdir(parents=True, exist_ok=True)
 
