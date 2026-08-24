@@ -12,7 +12,7 @@ from platipy.imaging.registration.utils import (
 
 
 # ==================================================
-# USER INPUTS
+# Patient Details
 # ==================================================
 
 patient_id = "006"
