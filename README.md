@@ -1,9 +1,13 @@
 # SPECT-CT Liver Segmentation Pipeline
 
-This repository contains Python scripts for processing liver SPECT-CT data, including whole-liver segmentation, Couinaud segment generation, segmentation quality control, and correction of failed post-treatment segmentations.
+This repository contains Python scripts for processing liver SPECT-CT data, including whole-liver segmentation, ROI segment generation (Couinaud, Dose bands), image registration, segmentation quality control, and ROI-based calculated statistics.
 
 ## Main workflow
+### Image Registration 
 
+### Segmentation 
+
+### Segment Statistics
 1. Generate whole-liver masks using TotalSegmentator.
 2. Generate Couinaud liver segment masks using TotalSegmentator.
 3. Combine individual segment masks into a single labelled volume.
