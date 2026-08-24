@@ -1,4 +1,4 @@
-# SPECT-CT Liver Segmentation Pipeline
+# SPECT-CT Liver Pipeline
 
 This repository contains Python scripts for processing liver SPECT-CT and radiation therapy imaging data for regional liver function analysis. The workflow includes image registration, whole-liver and Couinaud segmentation, radiation dose-band generation, segmentation quality control, SPECT scaling, and ROI-based statistical evaluation.
 
