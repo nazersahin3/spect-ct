@@ -1,6 +1,7 @@
-# SPECT-CT Liver Pipeline
+# SPECT-CT Liver Pipeline - RAW
+This repository contains both organised final deliverables produced over the year, as well as messier, less sophisticated scripts that were produced as I learned and understood the analytical workflow of my project. 
 
-This repository contains Python scripts for processing liver SPECT-CT and radiation therapy imaging data for regional liver function analysis. The workflow includes image registration, whole-liver and Couinaud segmentation, radiation dose-band generation, segmentation quality control, SPECT scaling, and ROI-based statistical evaluation.
+This repository contains Python scripts for processing liver SPECT-CT, and radiation therapy imaging data for regional liver function analysis. The workflow includes image registration, whole-liver and Couinaud segmentation, radiation dose-band generation, segmentation quality control, SPECT scaling, ROI-based statistical evaluation, troublshooting and learning the coding and registration process.
 
 ## Main workflow
 ### Image Registration 
@@ -18,15 +19,16 @@ The resulting datasets are represented in the RT planning coordinate system so t
 
 ### Segmentation 
 #### Liver Couinaud Segmentation
-Couinaud liver segments are generated from the RT planning CT using TotalSegmentator.
+A lot of the early work was based on using and experimenting with the Totalsegmentator tool.
+The final Couinaud liver segments were generated from the RT planning CT using TotalSegmentator, however early scripts were based on individual dataset segmentation, creating segmentation maps for each individual patient datasets. This changed when the registration pipeline matured and developed. 
 
 The segmentation workflow includes:
 
-Generate a whole-liver mask using TotalSegmentator.
-Generate Couinaud liver segment masks using the liver_segments TotalSegmentator task.
-Combine individual Couinaud segment masks into a labelled liver volume where required.
-Restrict or clip segment labels to the whole-liver mask.
-Perform visual and quantitative segmentation quality control.
+  Generate a whole-liver mask using TotalSegmentator.
+  Generate Couinaud liver segment masks using the liver_segments TotalSegmentator task.
+  Combine individual Couinaud segment masks into a labelled liver volume where required.
+  Restrict or clip segment labels to the whole-liver mask.
+  Perform visual and quantitative segmentation quality control.
 
 The resulting masks represent Couinaud liver segments I–VIII and are used for anatomical region-based functional analysis.
 
