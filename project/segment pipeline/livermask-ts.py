@@ -5,7 +5,7 @@ from totalsegmentator.python_api import totalsegmentator
 
 
 def main():
-    case_id = "rt_006"
+    case_id = "pre_006"
 
     input_ct = "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/registered/RTPLAN_CT_converted_from_DICOM.nii.gz"
     out_dir = Path(f"/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/liver_segmentation_{case_id}")
