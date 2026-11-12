@@ -16,7 +16,7 @@ from platipy.imaging.registration.utils import (
 # SETTINGS
 # ==================================================
 
-patient_id = "006"
+patient_id = "004"
 
 # Run PRE first.
 # Change this to "POST" for the POST registration.
@@ -55,7 +55,7 @@ output_dir.mkdir(
 # Fixed planning CT.
 fixed_ct_path = (
     registration_dir
-    / "RTPLAN_CT_converted_from_DICOM copy.nii.gz"
+    / "RTPLAN_CT_converted_from_DICOM.nii.gz"
 )
 
 # Fixed doctor-delineated liver.

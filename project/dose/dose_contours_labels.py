@@ -1,8 +1,16 @@
 from pathlib import Path
+
 import csv
 
 import numpy as np
+
+import sys
+
 import pydicom
+
+# Compatibility for Platipy with pydicom 3.x
+pydicom.read_file = pydicom.dcmread
+
 import SimpleITK as sitk
 
 from platipy.dicom.io.rtdose_to_nifti import convert_rtdose
@@ -12,11 +20,11 @@ from platipy.dicom.io.rtdose_to_nifti import convert_rtdose
 # USER SETTINGS
 # ============================================================
 
-Patient_id= "006"
+Patient_id= "004"
 
 
 RTDOSE_FOLDER = Path(
-    f"/Users/nana/Desktop/spect-data/PRISM-WM-{Patient_id}/RT/RTDOSE/DICOM"
+    f"/Users/nana/Desktop/spect-data/PRISM-WM-004/PRISM_WM_04_08272026/RTDOSE"
 )
 
 OUTPUT_FOLDER = Path(

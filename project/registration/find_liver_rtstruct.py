@@ -6,16 +6,16 @@ import pydicom
 # Patient related inputs
 # --------------------------------------------------
 
-patient_id = "002"
+patient_id = "004"
 
 # This is the OUTER folder containing all RTSTRUCT folders/files.
 rtstruct_root = Path(
-    f"/Users/nana/Desktop/spect-data/PRISM-WM-{patient_id}/RT/RTSTRUCTS"
+    f"/Users/nana/Desktop/spect-data/PRISM-WM-004/PRISM_WM_04_08272026/RTSTRUCT"
 )
 
 # This must be the planning CT DICOM series used for contouring.
 planning_ct_dir = Path(
-    f"/Users/nana/Desktop/spect-data/PRISM-WM-{patient_id}/RT/CT/DICOM"
+    f"/Users/nana/Desktop/spect-data/PRISM-WM-004/PRISM_WM_04_08272026/DICOM"
 )
 
 target_structure_name = "Liver"

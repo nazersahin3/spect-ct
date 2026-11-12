@@ -10,7 +10,7 @@ import os
 from platipy.imaging import ImageVisualiser
 
 
-patient_id = "006"
+patient_id = "002"
 
 
 # ============================================================
@@ -20,15 +20,15 @@ patient_id = "006"
 # ---------------- CT images ----------------
 
 pre_ct_file = (
-   "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_pre/Biliary Scan/3 CT_Liver_3mm_I41s_2.nii"
+   "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/002/registered_RTSTRUCT/structure_guided_deformable/PRE_CT_to_RTPLAN_boundary_guided_bspline.nii.gz"
 )
 
 rt_ct_file = (
-   "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM copy.nii.gz"
+   "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/002/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM copy.nii.gz"
 )
 
 post_ct_file = (
-   "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_post/Biliary Scan/3 CT_Liver_3mm_I41s_3.nii"
+   "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/002/registered_RTSTRUCT/structure_guided_deformable/POST_CT_to_RTPLAN_boundary_guided_bspline.nii.gz"
 )
 
 
@@ -36,15 +36,15 @@ post_ct_file = (
 # ---------------- Liver masks ----------------
 
 pre_liver_mask_file = (
-    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/liver_segmentation_pre_006/liver_pre_006_mask.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/002/registered_RTSTRUCT/structure_guided_deformable/PRE_liver_to_RTPLAN_boundary_guided_bspline.nii.gz"
 )
 
 post_liver_mask_file = (
-    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/liver_segmentation_post_006/liver_post_006_mask.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/002/registered_RTSTRUCT/structure_guided_deformable/POST_liver_to_RTPLAN_boundary_guided_bspline.nii.gz"
 )
 
 rt_liver_mask_file = (
-    "/Users/nana/Desktop/HONOURS/spect-data-imac/NE ALTERED/006/rtplan_structures/RTPLAN_Liver.nii.gz" # this is the RTSTRUCT liver mask
+    "/Users/nana/Desktop/HONOURS/spect-data-imac/NE ALTERED/002/rtplan_structures/RTPLAN_Liver.nii.gz" # this is the RTSTRUCT liver mask
 )
 
 
@@ -157,7 +157,7 @@ rt_liver_rt_space = sitk.Resample(
 
 vis = ImageVisualiser(
     rt_ct,
-    cut=(120, 200, 200)
+    cut=(80, 200, 200)
 )
 
 
@@ -198,7 +198,7 @@ vis.add_contour(
 fig = vis.show()
 
 figure_path = (
-    f"{output_dir}/pre_registration_liver_overlay_{patient_id}.png"
+    f"{output_dir}/post_registration_liver_overlay_{patient_id}.png"
 )
 
 ax = fig.axes[0]
@@ -206,7 +206,7 @@ ax = fig.axes[0]
 # Put text in the same upper-right area as the legend
 ax.text(
     0.98, 0.98,
-    f"Pre-registration liver contours\nPatient {patient_id}",
+    f"Post-registration liver contours\nPatient {patient_id}",
     transform=ax.transAxes,
     ha="right",
     va="top",

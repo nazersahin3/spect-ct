@@ -12,10 +12,10 @@ from platipy.imaging.registration.utils import (
 
 
 # ==================================================
-# Patients related inputs
+# USER INPUTS
 # ==================================================
 
-patient_id = "006"
+patient_id = "004"
 
 base_dir = Path(
     "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED"
@@ -30,27 +30,26 @@ output_dir.mkdir(parents=True, exist_ok=True)
 # --------------------------------------------------
 
 rtplan_ct_path = Path(
-    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/registered/RTPLAN_CT_converted_from_DICOM.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/004/registered/RTPLAN_CT_converted_from_DICOM.nii.gz"
     )
 
-# Replace with the TotalSegmentator liver mask
-# generated from the RTPLAN CT.
+# Replace with the TotalSegmentator liver mask with the RTSTRUCT Liver.
 rtplan_liver_path = Path(
-    "/Users/nana/Desktop/HONOURS/spect-data-imac/NE ALTERED/006/rtplan_structures/RTPLAN_Liver.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-data-imac/NE ALTERED/004/rtplan_structures/RTPLAN_Liver.nii.gz" 
 )
-
 
 # --------------------------------------------------
 # ORIGINAL PRE AND POST CTs
 # --------------------------------------------------
 
 pre_ct_path = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_pre/Biliary Scan/3 CT_Liver_3mm_I41s_2.nii"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_pre/Biliary Scan/CT AC AbdoLowDose 3.0 I41s/003_AC__AbdoLowDose__3_0__I41s.nii.gz"
 )
 
 post_ct_path = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_post/Biliary Scan/3 CT_Liver_3mm_I41s_3.nii"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_post/Biliary Scan/3 CT_Liver_3mm_I41s.nii"
 )
+
 
 # --------------------------------------------------
 # ORIGINAL PRE AND POST LIVER MASKS
@@ -60,12 +59,13 @@ post_ct_path = Path(
 # --------------------------------------------------
 
 pre_liver_path = Path(
-    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/liver_segmentation_pre_006/liver_pre_006_mask.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/004/liver_segmentation_pre004/liver_004_pre_mask.nii.gz"
 )
 
 post_liver_path = Path(
-    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/liver_segmentation_post_006/liver_post_006_mask.nii.gz"
+    "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/004/liver_segmentation_post004/liver_post004_mask.nii.gz"
 )
+
 
 
 # ==================================================

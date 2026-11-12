@@ -4,11 +4,11 @@ from totalsegmentator.python_api import totalsegmentator
 
 
 def main():
-    case_id = "RT_006"
+    case_id = "RT_004"
 
-    input_ct = "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM copy.nii.gz"
+    input_ct = "/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/004/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM.nii.gz"
 
-    out_dir = Path(f"/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/006/rt_mask")
+    out_dir = Path(f"/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/004/rt_mask")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     segments_dir = out_dir / f"liver_{case_id}_segments_raw_totalsegmentator"

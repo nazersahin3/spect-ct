@@ -9,7 +9,7 @@ import SimpleITK as sitk
 # 1. Patient ID
 # ============================================================
 
-PATIENT_ID = "002"
+PATIENT_ID = "004"
 
 
 # ------------------------------------------------------------
@@ -29,7 +29,7 @@ DATAFRAME_FILE = Path(
 # ------------------------------------------------------------
 
 RTPLAN_CT = Path(
-    f"/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/{PATIENT_ID}/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM copy.nii.gz"
+    f"/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED/{PATIENT_ID}/registered_RTSTRUCT/RTPLAN_CT_converted_from_DICOM.nii.gz"
 )
 
 
@@ -40,11 +40,11 @@ RTPLAN_CT = Path(
 # ------------------------------------------------------------
 
 PRE_SPECT = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-002/SPECT_nifti_pre/Biliary Scan/NM Mebrofenin SPECT F3D AC/1000_Mebrofenin_SPECT_F3D_-_AC.nii.gz"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_pre/Biliary Scan/NM Mebrofenin SPECT F3D AC/1000_Mebrofenin_SPECT_F3D_-_AC.nii.gz"
 )
 
 POST_SPECT = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-002/SPECT_nifti_post/Biliary Scan/NM Mebrofenin SPECT F3D AC/1000_Mebrofenin_SPECT_F3D_-_AC.nii.gz"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_post/Biliary Scan/1000 Mebrofenin SPECT F3D - AC.nii"
 )
 
 
@@ -101,11 +101,11 @@ POST_LIVER_MASK = Path(
 # PATIENT TLF VALUES
 #
 # Enter the actual TLF values for this patient.
-# Units = %/min
+# Units = %/min/m^2 (BODY SURFACE AREA NORMALISED)
 # ------------------------------------------------------------
 
-PRE_TLF = 12.7       # <-- CHANGE
-POST_TLF = 9.9    # <-- CHANGE
+PRE_TLF = 1.2       # <-- CHANGE
+POST_TLF = 0.6    # <-- CHANGE
 
 
 # ------------------------------------------------------------

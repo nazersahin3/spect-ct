@@ -14,7 +14,7 @@ except ImportError:
 # USER INPUTS
 # --------------------------------------------------
 
-patient_id = "006"
+patient_id = "004"
 
 base_dir = Path("/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED")
 
@@ -22,15 +22,15 @@ base_dir = Path("/Users/nana/Desktop/HONOURS/spect-ct-imac/NE ALTERED")
 # This should be the DICOM FOLDER containing the RT planning CT slices,
 # not an individual RTPLAN .dcm file.
 rtplan_ct_dicom_dir = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-006/RT/CT/3/DICOM"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/PRISM_WM_04_08272026/DICOM"
 )
 
 pre_ct_path = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_pre/Biliary Scan/3 CT_Liver_3mm_I41s_2.nii"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_pre/Biliary Scan/CT AC AbdoLowDose 3.0 I41s/003_AC__AbdoLowDose__3_0__I41s.nii.gz"
 )
 
 post_ct_path = Path(
-    "/Users/nana/Desktop/spect-data/PRISM-WM-006/SPECT_nifti_post/Biliary Scan/3 CT_Liver_3mm_I41s_3.nii"
+    "/Users/nana/Desktop/spect-data/PRISM-WM-004/SPECT_nifti_post/Biliary Scan/3 CT_Liver_3mm_I41s.nii"
 )
 
 output_dir = base_dir / patient_id / "registered"
