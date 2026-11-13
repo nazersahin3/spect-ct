@@ -1,4 +1,4 @@
-# SPECT/CT Liver Analysis — Development Repository
+# SPECT/CT Liver Analysis - Development Repository
 
 ## Overview
 
